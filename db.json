@@ -1,39 +1,6 @@
 {
   "projects": [
     {
-      "category": {
-        "id": "2",
-        "name": "Desenvolvimento"
-      },
-      "name": "teste 1",
-      "budget": "4999",
-      "cost": 0,
-      "services": [],
-      "id": 1
-    },
-    {
-      "name": "teste 2",
-      "budget": "1000",
-      "category": {
-        "id": "2",
-        "name": "Desenvolvimento"
-      },
-      "cost": 0,
-      "services": [],
-      "id": 2
-    },
-    {
-      "name": "teste 3 ",
-      "budget": "1500",
-      "category": {
-        "id": "3",
-        "name": "Design"
-      },
-      "cost": 0,
-      "services": [],
-      "id": 3
-    },
-    {
       "name": "Infraestrutura",
       "budget": "35000",
       "category": {
