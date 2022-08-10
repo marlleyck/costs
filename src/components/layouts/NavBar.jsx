@@ -18,12 +18,12 @@ const NavBar = () => {
                 <li className={styles.item}>
                 <Link to='/projects'>Projects</Link>
                 </li>
-                <li className={styles.item}>
+{/*                 <li className={styles.item}>
                     <Link to='/company'>Company</Link>
                 </li>
                 <li className={styles.item}>
                     <Link to='/contact'>Contact</Link>
-                </li>
+                </li> */}
             </ul>
         </Container>
       </nav>
