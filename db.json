@@ -1,11 +1,11 @@
 {
   "projects": [
     {
-      "name": "Infraestrutura",
+      "name": "Planejamento Att",
       "budget": "35000",
       "category": {
-        "id": "1",
-        "name": "Infra"
+        "id": "4",
+        "name": "Planejamento"
       },
       "cost": 0,
       "services": [],

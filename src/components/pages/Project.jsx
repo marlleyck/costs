@@ -3,6 +3,8 @@ import {useParams} from 'react-router-dom'
 
 import Loading from '../layouts/Loading'
 import Container from '../layouts/Container'
+import ProjectForm from '../project/ProjectForm'
+import Message from '../layouts/Message'
 
 import styles from './Project.module.css'
 
@@ -12,6 +14,9 @@ const Project = () => {
 
     const [project, setProject] = useState([])
     const [showProjectForm, setShowProjectForm] = useState(false)
+    const [showServiceForm, setShowServiceForm] = useState(false)
+    const [message, setMessage] = useState()
+    const [type, setType] = useState()
 
     useEffect(() => {
         setTimeout(() => {
@@ -33,11 +38,43 @@ const Project = () => {
         setShowProjectForm(!showProjectForm)
     }
 
+    const toggleServiceForm = () => {
+        setShowServiceForm(!showServiceForm)
+    }
+
+
+    const editPost = (project) => {
+        setMessage('')
+        // budget validation
+        if (project.budget < project.cost) {
+            setMessage('O oçamento não pode ser menor que o custo do projeto!')
+            setType('error')
+            return false;
+        }
+
+        fetch(`http://localhost:5000/projects/${project.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(project)
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            setProject(data)
+            setShowProjectForm(false)
+            setMessage('Projeto Atualizado!')
+            setType('sucess')
+        })
+        .catch(err => console.log(err))
+    }
+
     return ( 
         <>
             {project.name ? (
                 <div className={styles.project_details}>
                     <Container customClass='column'>
+                    {message && <Message type={type} msg={message} /> }
                         <div className={styles.details_container}>
                             <h1>Projeto: {project.name}</h1>
                             <button className={styles.btn} onClick={toggleProjectForm}>{!showProjectForm ? 'Editar Projeto' : 'Fechar'}
@@ -56,10 +93,27 @@ const Project = () => {
                                 </div>
                             ) : (
                                 <div className={styles.project_info}>
-                                    <p>form</p>
+                                    <ProjectForm handleSubmit={editPost} 
+                                    btnText='Concluir Edição' projectData={project} />
                                 </div>
                             )}
                         </div>
+                        <div className={styles.service_form_container}>
+                                <h2>Adicione um serviço</h2>
+                                <button className={styles.btn} onClick={toggleServiceForm}>{!showServiceForm ? 'Adicionar Servçico' : 'Fechar'}
+                            </button>
+                            <div className={styles.project_info}>
+                                {showServiceForm && (
+                                    <div>
+                                        formulario do servico
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                        <h2>Serviços</h2>
+                        <Container customClass='start'>
+                            <p>Itens de serviços</p>
+                        </Container>
                     </Container>
                 </div>
             ) : (
